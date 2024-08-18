@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction Time Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #FFFFFF; /* Initial white background */
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #message, #progress {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        #info {
+            align-items: left;
+            justify-content: left;
+        }
+        #restartButton, #results {
+            display: none;
+            margin-top: 20px;
+        }
+        button, input {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            width: 80%; /* Responsive width */
+            max-width: 300px; /* Maximum button width */
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #results {
+            background-color: #f8f9fa; /* Light grey background */
+            border: 1px solid #ccc; /* Light grey border */
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners */
+            text-align: center; /* Centered text */
+            max-width: 300px; /* Maximum width */
+            margin: 20px auto; /* Centering the div */
+            display: none;
+            margin-top: 20px;
+        }
+        h2, p {
+            color: #333; /* Dark grey text */
+        }
+
+        .color-selector {
+            width: 25px;  /* Default width */
+            height: 25px; /* Default height */
+            border: 2px solid #ccc;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            opacity: 0.9; /* Dim unselected colors */
+
+        }
+
+
+        .color-selector.selected {
+            width: 50px; /* Larger size for selected */
+            height: 40px;
+            opacity: 1; /* Brighten the selected color */
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<div id="info" style="text-align: left;">
+              <h2 class="reaction_content_title">Audio Reaction</h2>
+                  <hr />
+                  <ul>
+                    <li>
+                      An audio clip wiil be played after a random time delay.
+                    </li>
+                    <li>
+                      Click once your hear the voice to mark your response.
+                    </li>
+                    <li>
+                      The audio will be played 3 times and you have
+                      to mark the response each time.
+                    </li>
+                    <li>The average response time will be shown at the end.</li>
+                
+                  </ul>
+
+                </div>
+                <div class="audio-wrapper">
+                
+                    <audio id="audio-source"  hidden>
+                      <source src="./assets/audio/audio.mp3" type="audio/mpeg" />
+                      Your browser does not support the audio tag.
+                    </audio>
+                  </div>
+    <input type="text" id="username" style="background-color: transparent; color: black; border: 1px solid #ccc; padding: 5px;" placeholder="Please enter your name">
+    <button onclick="beginTest()">Start Test</button>
+    <div id="message" style="font-size: 24px; text-align: center;">
+    </div>
+  
+    <div id="progress"></div>
+    <!--div id="results"></div-->
+    <div id="results">
+        <h2>Test Results</h2>
+        <p><strong>Name: <span id="nameDisplay"></span></strong> </p>
+        <p><strong><h3>Reaction Time:</h3></strong> <h3><span id="avgMsgDisplay"></span></h3></p>
+        <p>Run 1: <span id="run1MsgDisplay"></span></p>
+        <p>Run 2: <span id="run2MsgDisplay"></span></p>
+        <p>Run 3: <span id="run3MsgDisplay"></span></p>
+        <p id="pdate">Time of Test: <span id="dateDisplay"></span></p>
+    </div>
+
+
+
+    <button id="restartButton" onclick="location.reload()">Restart Test</button>
+   
+        
+    <script>
+        let startTime, attempts = 0;
+        let reactionTimes = [];
+        const resultsDiv = document.getElementById('results');
+        const progressDiv = document.getElementById('progress');
+        const messageDiv = document.getElementById('message');
+        const audio = document.getElementById("audio-source");
+
+         
+
+        function beginTest() {
+            const username = document.getElementById('username').value.trim();
+            if (!username) {
+                alert('Please enter your username.');
+                return;
+            }
+
+           
+            document.getElementById('username').style.display = 'none';
+            document.querySelector('button').style.display = 'none';
+            info.style.display = 'none';
+            messageDiv.textContent = 'Click when a sound plays...'; 
+            messageDiv.style.display = 'block';
+            progressDiv.textContent = 'Run #' + (attempts + 1) + ' of 3';
+            progressDiv.style.display = 'block';
+         
+            setTimeout(prepareTest, Math.random() * 2000 + 1000);
+        }
+
+        function prepareTest() {
+          //  document.body.style.backgroundColor = 'green';
+            startTime = new Date().getTime();
+            audio.play();
+            document.body.onclick = recordReaction;
+        }
+
+        // Function to play audio clip
+function playAudio(isStart) {
+  if (isStart) {
+    resetAll();
+  }
+  if (timerId) clearTimeout(timerId);
+ // waitMessageEl.classList.add("show");
+  timerId = setTimeout(() => {
+    if (reactionTimeArray.length < AVG_COUNT) {
+      //waitMessageEl.classList.remove("show");
+     // audioBarContainer.classList.add("animate");
+      audio.play();
+      audioReactionButton.removeAttribute("disabled");
+      reactionTimeArray.push({
+        onTime: new Date(),
+      });
+    }
+  }, RANDOM_DELAY);
+}
+
+        function recordReaction() {
+            audio.pause(); // Stop Audio
+            audio.currentTime = 0; // Reset pla
+            const endTime = new Date().getTime();
+            const reactionTime = endTime - startTime;
+            reactionTimes.push(reactionTime);
+            attempts++;
+            progressDiv.textContent = 'Run #' + (attempts + 1) + ' of 3';
+
+
+            document.body.onclick = null;
+            if (attempts < 3) {
+                messageDiv.textContent = 'Click when a sound plays...';
+                setTimeout(prepareTest, Math.random() * 2000 + 1000);
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const username = document.getElementById('username').value;
+            const averageTime = reactionTimes.reduce((a, b) => a + b, 0) / reactionTimes.length;
+            document.getElementById('dateDisplay').textContent = new Date().toLocaleString('en-US', { timeZoneName: 'short' });
+            document.getElementById('avgMsgDisplay').textContent = averageTime.toFixed(2) + ' ms';
+            document.getElementById('run1MsgDisplay').textContent = reactionTimes[0].toFixed(2) + ' ms';
+            document.getElementById('run2MsgDisplay').textContent = reactionTimes[1].toFixed(2) + ' ms';
+            document.getElementById('run3MsgDisplay').textContent = reactionTimes[2].toFixed(2) + ' ms';
+            document.getElementById('nameDisplay').textContent = username;
+            resultsDiv.style.display = 'block';
+            document.getElementById('restartButton').style.display = 'block';
+            document.body.style.backgroundColor = 'white';
+            document.body.style.color = 'black';
+            messageDiv.style.display = 'none';
+            progressDiv.style.display = 'none';
+
+
+        }
+    </script>
+</body>
+</html>
