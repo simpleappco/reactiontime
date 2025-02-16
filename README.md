@@ -1,4 +1,4 @@
-# human reaction time
+# Human reaction time
 
 ## Getting started
 Reaction time measurement checking system.
@@ -19,7 +19,11 @@ Copyright &copy; Dr Raju Suresh Kumar
 
 
 ## Project status
-Audio stimulus
-https://simpleappco.github.io/reactiontime/audio.html
-Colour stimulus
+Audio stimulus  
+
+https://simpleappco.github.io/reactiontime/audio.html    
+
+
+Colour stimulus  
+
 https://simpleappco.github.io/reactiontime/test.html
