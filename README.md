@@ -17,7 +17,7 @@ For help reach out to
 
 
 ## License
-Copyright &cpy; Dr Raju Suresh Kumar
+Copyright &copy; Dr Raju Suresh Kumar
 
 
 ## Project status
