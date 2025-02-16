@@ -1,13 +1,11 @@
 # human reaction time
 
-
-
 ## Getting started
-
-use this link to test reaction time
+Reaction time measurement checking system.
 
 ## Name
 Reaction time
+
 ## Description
 Measure the reaction time of users to changing colors and audio stimuli.
 
@@ -21,4 +19,7 @@ Copyright &copy; Dr Raju Suresh Kumar
 
 
 ## Project status
-In progress
+Audio stimulus
+https://simpleappco.github.io/reactiontime/audio.html
+Colour stimulus
+https://simpleappco.github.io/reactiontime/test.html
