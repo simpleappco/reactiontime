@@ -197,7 +197,7 @@
             document.body.onclick = null;
             if (attempts < 3) {
                 document.body.style.backgroundColor = '#FFFFFF';
-                messageDiv.textContent = 'Wait for '+ selectedColor+'...';
+                messageDiv.textContent = 'Click when the colour is '+ selectedColor+'...';
                 setTimeout(prepareTest, Math.random() * 2000 + 1000);
             } else {
                 showResults();
