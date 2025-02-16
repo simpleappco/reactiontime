@@ -17,9 +17,7 @@ For help reach out to
 
 
 ## License
-For open source projects, say how it is licensed.
-Copy right Raju S.Menon 
-
+Copyright &cpy; Dr Raju Suresh Kumar
 
 
 ## Project status
