@@ -165,7 +165,7 @@
                 return;
             }
 
-            document.body.style.backgroundColor = 'blue';
+            document.body.style.backgroundColor = '#FFFFFF';
             document.getElementById('username').style.display = 'none';
             document.querySelector('button').style.display = 'none';
             info.style.display = 'none';
@@ -196,7 +196,7 @@
 
             document.body.onclick = null;
             if (attempts < 3) {
-                document.body.style.backgroundColor = 'blue';
+                document.body.style.backgroundColor = '#FFFFFF';
                 messageDiv.textContent = 'Wait for '+ selectedColor+'...';
                 setTimeout(prepareTest, Math.random() * 2000 + 1000);
             } else {
